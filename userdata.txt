@@ -1,10 +1,10 @@
 #cloud-config
 users:
-  - name: pitonix
+  - name: pitonix-dpl
     groups: [ sudo ]
     sudo: [ "ALL=(ALL) NOPASSWD:ALL" ]
     shell: /bin/bash
     lock_passwd: false
-    passwd: 
+    passwd: 5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
     ssh_authorized_keys: 
-      - ssh-rsa 
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC+lSYtS7UlnK/Lpa+6t+L+L1jNxWSlKaoIKkoUaEB7mWLeXJlRkOf5S6e2RDgq8mrDocqrGyZJYl0qxjKwFiJSZ3MxF0///0IF/WXeVhZH1freOvitr1NTzKCAW+EPfp+y4djXL1nK1YO+JOx8sgOaEu1YU+H0EL8g129NDrzp2V98cvrIDtxB/l+wDB0XijVsbCWfBazF9a9TYowe6QeRQI8nrZOA22mWt5n53TT6kVOY7XiewZwILibqzD3DWyu3S2aoYHdida/81zlaIxW0HSLkHPWDsYIgB4XNdx/acj93ycJ2PiPBLUd7L/kAapqwLPkPS0LPOqV/TN+pspPQKXqloBl2GZ6u9lscxYXArwQy/1SMPIRTKBC9lAszJWlexbMXUgZ3NJ0/UHnMnEgQDc/Bhi3fKbwqtcIpv9u+NySx+X9P/sfu43E4eSzN3HWl4auzlg+rDdc2n0iU9SeT9ICOacpVie+5Ec0ZZLQBkZ3IHLMnTaImW+w9vD2QMWs= Платон@DESKTOP-0V368N7
