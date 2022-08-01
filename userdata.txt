@@ -1,0 +1,10 @@
+#cloud-config
+users:
+  - name: pitonix
+    groups: [ sudo ]
+    sudo: [ "ALL=(ALL) NOPASSWD:ALL" ]
+    shell: /bin/bash
+    lock_passwd: false
+    passwd: 
+    ssh_authorized_keys: 
+      - ssh-rsa 
