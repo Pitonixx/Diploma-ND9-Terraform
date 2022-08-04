@@ -9,23 +9,52 @@ resource "yandex_vpc_network" "netology-net" {
     name = "netology-net"
 }
 
-resource "yandex_vpc_subnet" "netology-net-subnet-a" {
-    name           = "subnet-a"
-    v4_cidr_blocks = ["192.168.10.0/24"]
-    zone           = "ru-central1-a"
+resource "yandex_vpc_subnet" "subnet" {
+    for_each = var.VM
+    zone           = each.value.zone
+    v4_cidr_blocks = [each.value.cidr_block]
     network_id     = "${yandex_vpc_network.netology-net.id}"
 }
 
-resource "yandex_vpc_subnet" "netology-net-subnet-b" {
-    name           = "subnet-b"
-    v4_cidr_blocks = ["192.168.20.0/24"]
-    zone           = "ru-central1-b"
-    network_id     = "${yandex_vpc_network.netology-net.id}"
+# VMs #
+ resource "yandex_compute_instance" "vm" {
+    for_each = yandex_vpc_subnet.subnet
+    name     = each.key
+    zone     = each.value.zone
+    allow_stopping_for_update = true
+    network_interface {
+        subnet_id = each.value.id
+        nat       = true
+    }
+    resources {
+        cores         = 2
+        memory        = 4
+        core_fraction = 100
+    }
+    boot_disk {
+        initialize_params {
+            image_id = "fd86cpunl4kkspv0u25a"
+            size     = 20
+        }
+    }
+    metadata = {
+        user-data = "${file("userdata.txt")}"
+    }
 }
 
-resource "yandex_vpc_subnet" "netology-net-subnet-c" {
-    name           = "subnet-c"
-    v4_cidr_blocks = ["192.168.30.0/24"]
-    zone           = "ru-central1-c"
-    network_id     = "${yandex_vpc_network.netology-net.id}"
+# target group #
+resource "yandex_lb_target_group" "tg-1" {
+    name = "app-tg"
+    target {
+        subnet_id = "${yandex_compute_instance.vm["cp"].network_interface.0.subnet_id}"    
+        address   = "${yandex_compute_instance.vm["cp"].network_interface.0.ip_address}" 
+    }
+     target {
+        subnet_id = "${yandex_compute_instance.vm["node1"].network_interface.0.subnet_id}"    
+        address   = "${yandex_compute_instance.vm["node1"].network_interface.0.ip_address}"    
+    }
+     target {
+        subnet_id = "${yandex_compute_instance.vm["node2"].network_interface.0.subnet_id}"  
+        address   = "${yandex_compute_instance.vm["node2"].network_interface.0.ip_address}"    
+    }
 }
