@@ -10,7 +10,7 @@
 Конфигурация для Terraform Cloud - [main.tf](main.tf).
 
 Создан сервисный аккаунт:
-![SA](img/serviceacc.PNG)
+![SA](Img/serviceacc.PNG)
 
 Отработал Apply:
- ![Apply](img/test4backendApply.PNG)
+ ![Apply](Img/test4backendApply.PNG)
