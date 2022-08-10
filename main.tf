@@ -58,3 +58,25 @@ resource "yandex_lb_target_group" "tg-1" {
         address   = "${yandex_compute_instance.vm["node2"].network_interface.0.ip_address}"    
     }
 }
+
+# loadbalancer #
+resource "yandex_lb_network_load_balancer" "lb-1" {
+    name = "app-lb"
+    listener {
+        name = "app-listener"
+        port = 80
+        target_port = 30003
+        external_address_spec {
+            ip_version = "ipv4"
+        }
+    }
+    attached_target_group {
+        target_group_id = "${yandex_lb_target_group.tg-1.id}"
+        healthcheck {
+            name = "http"
+            http_options {
+                port = 30003
+            }
+        }
+    }
+}
