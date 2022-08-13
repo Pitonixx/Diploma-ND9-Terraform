@@ -12,5 +12,9 @@
 Создан сервисный аккаунт:
 ![SA](Img/serviceacc.PNG)
 
-Отработал Apply:
- ![Apply](Img/test4backendApply.PNG)
+Отработал Apply по виртуальным машинам и сети:
+ ![Apply](Img/vm-create.PNG)
+
+ Отработал Apply по Load Balancer-у:
+
+  ![Apply2](Img/lb.PNG)
