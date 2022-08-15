@@ -79,4 +79,12 @@ resource "yandex_lb_network_load_balancer" "lb-1" {
             }
         }
     }
+    listener {
+        name = "grafana-listener"
+        port = 8080
+        target_port = 30902
+        external_address_spec {
+            ip_version = "ipv4"
+        }
+    }      
 }
